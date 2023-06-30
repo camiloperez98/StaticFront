@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>{{titulo}}</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="css/nunito-font.css">
+	<!-- Main Style Css -->
+    <link rel="stylesheet" href="css-login/style.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<link rel="stylesheet" href="sweetalert2.min.css">
+
+</head>
+
+<body class="form-v6">
+	<div class="page-content">
+		<div class="form-v6-content">
+			<div class="form-left">
+				<img src="/images-login/fondobotellas.jpeg" width="500px" height="560px" alt="form">
+			</div>
+			<form class="form-detail"  id="login-form">
+				<h2>¿Olvidò Contraseña?</h2>
+
+				<div class="form-row">
+					<input type="number" name="telefono" id="telefono" class="input-text" placeholder="Celular" >
+				</div>
+				<div class="form-row">
+					<input type="text" name="email" id="email" class="input-text" placeholder="Email " >
+				</div>
+				
+				
+				<div class="form-row-last">
+					<button type="submit" class="ingresar">Recuperar</button></a>
+                      <a href="/"><button type="button" class="ingresar">Cancelar</button></a>
+				</div>
+                
+			</form>
+		</div>
+	</div>
+
+    <script>
+
+		const expresionEmail = 	/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/  
+		const expresionTelefono = /^\d{5}$/
+
+		const form = document.querySelector('#login-form');
+
+		form.addEventListener('submit' , e => {
+			e.preventDefault();
+			const email = e.target.email.value;
+			const telefono = e.target.telefono.value;
+            
+			try{
+				if(email == '' || telefono == '' ){
+					throw ' No se admiten campos vacíos';
+				}
+				if(	!expresionEmail.test(email)){
+					throw ' Email no cumple con el formato';
+					
+				}
+				if(!expresionTelefono.test(telefono)){
+					throw ' Telèfono no cumple con el formato';
+					
+				}
+				Swal.fire({
+                    icon: 'success',
+                    title: 'Confirmación enviada al email registrado éxitosamente'
+                }).then(result => {
+                    if(result.isConfirmed){
+                        window.location.href = '/nuevacontra';
+                    }
+                });
+                
+
+			}catch(e){				
+					Swal.fire({
+						icon: 'error',
+						title: 'ERROR',
+						text: e,
+						
+			})
+				
+
+			}
+		})
+
+	</script>
+    
+</body>
+</html>
